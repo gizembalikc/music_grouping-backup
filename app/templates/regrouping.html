@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+   function myFunction() {
+     var x = document.getElementById("about_div");
+     if (x.style.display === "none") {
+    	x.style.display = "block";
+    	document.getElementById("hide-show").innerHTML = "Click here to hide";
+      } else {
+    	x.style.display = "none";
+    	document.getElementById("hide-show").innerHTML = "Click here to see more";
+      }
+    }
+</script>
+<h3> About music re-grouping task: </h3>
+<h4> You completed the first phase of the music grouping task. You can continue with grouping the music pieces in the ungrouped list.</h4>
+<div class="info" id=about_div style="display:none;">
+ <text> In that phase you will see the last form of the music groups one by one in the right box.</text>
+ <br>
+ <text> Please add the music pieces in the ungrouped list to the group that is consist of most similar music pieces to it in terms of <b>emotion content.</b> </text>
+ <br>
+ <text> Please click the <b>"Next"</b> button to see the next group.(After last group, the first group will be displayed if there is music pieces in the ungrouped list.)</text>
+ <br>
+ <text> This phase will end when you group all the music in the ungrouped list. Until that groups will be displayed one by one in the right box. </text>
+<text>To play a music in any of the music lists, please select the music and click <b>"Load"</b> button.</text>
+ <br>
+ <text>If you want to save the grouping done so far, and continue grouping later please click <b>"Save"</b> button.</text>
+</br>
+</div>
+<u style="color:blue;cursor:pointer"><text onclick="myFunction()" id=hide-show>Click here to see more</Text></u>
+{% if music%}
+ {% include '_musicplayer.html' %}
+{% endif %}
+
+<div>
+ <form method="POST" action="{{url_for('regrouping_operation')}}">
+ <button type="submit" name= "submit_button" value="play" class="button">Play Music   </button>
+</div>
+<div>
+  <div class="continer">
+  	<div class="continer-h">
+    		<h4>List of ungrouped music</h4>
+    		<div>
+  			<select name="ungrouped_play_list" size="20" style="width:250px;height:%90"> 
+  			{% for key in grouping.regrouping_dict%}
+   			<option>{{key}}</option>
+  			{% endfor %}       
+  			</select>
+  		</div>
+  <!--
+  <div class= "continer-h">
+  <button type="submit" name= "submit_button" value="play" class="button">Play   </button>
+  </div>
+  -->
+  	</div>
+  	  
+  	<div class="continer-h">
+  		<h4>Group {{grouping.regrouping_curr_group_key}}</h4>  
+  		<select name="g_play_list" size="20" class="player-list">
+  		{% for key in g_elems %}
+   		<option>{{key}}</option>
+  		{% endfor %}       
+  		</select>
+  		<div class= "continer-h">
+  			<button type="submit" name= "submit_button" value="add_g" class="button">Add to Group {{grouping.regrouping_curr_group_key}}</button> 
+  			<button type="submit" name= "submit_button" value="add_regrouping" class="button">Add to ungrouped musics list</button>
+  			<textarea id="notes2" name="notesg2" rows="4" cols="30"> You can write reminder notes here. </textarea>
+  		</div>
+  	</div>
+  </div>
+</div> 
+ 
+
+
+ <div class="continer" style="position:absolute;left:20%">
+  <button type="submit" name= "submit_button" value="next" class="button">Next Group</button>
+  <button type="submit" name= "submit_button" value="save" class="button">Save</button>
+ </div>
+
+ </div>
+ 
+ </form>
+{% endblock %}

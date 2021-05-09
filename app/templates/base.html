@@ -1,0 +1,64 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Music Grouping Platform</title>
+        {% else %}
+        <title>Music Grouping Platform</title>
+        {% endif %}
+        <style>
+    .info {
+    	padding: 5px 15px 
+    }
+    .continer{
+      	display: flex;
+  	justify-content: space-between;
+        padding: 15px 35px
+    }
+    .continer-h{
+      	display: grid;
+  	justify-content: space-between;
+        padding: 15px 35px    
+    }
+    .player-list {
+         width:  200px
+         height: 100px
+    }
+    
+    .button {
+  	padding: 7px 16px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 16px;
+  	margin: 2px 1px;
+  	cursor: pointer;
+  	width:  175px
+  	
+     }
+</style>
+    </head>
+    <body>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+        <hr>
+        <div style="background-color:#FF9999;width:45%">
+	{% with messages = get_flashed_messages() %}
+  	   {% if messages %}
+  	   <h3>Caution!</h3>
+           <!--<ul class=flashes> -->
+    	   {% for message in messages %}
+      		<text>{{ message }}</text> <!--</li> -->
+    	   {% endfor %}
+           <!--</ul>-->
+  	   {% endif %}
+	   {% endwith %}
+</div>
+        {% block content %}{% endblock %}
+    </body>
+</html>

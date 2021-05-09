@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<script>
+   function myFunction() {
+     var x = document.getElementById("about_div");
+     if (x.style.display === "none") {
+    	x.style.display = "block";
+    	document.getElementById("hide-show").innerHTML = "Click here to hide";
+      } else {
+    	x.style.display = "none";
+    	document.getElementById("hide-show").innerHTML = "Click here to see more";
+      }
+    }
+</script>
+
+<h3> About music grouping task: </h3>
+
+<div class="info" id=about_div style="display:none;">
+<text> Please divide the music in the main list into two groups according to emotional content similarities. Put the music pieces which convey similar emotion into same group</text>
+<br>
+<text>To play a music in any of the music lists, please select the music and click <b>"Play Music"</b> button.</text>
+ <br>
+<text> To group any music piece in the second phase of music grouping task, please select music and add it to the ungrouped musics list by clicking  <b>"Add to ungrouped musics list"</b> button.</text> 
+ <br>
+ <text> When you are done with the grouping music pieces in the main list, please click the <b>"Next Step"</b> button to continue grouping. </text>
+ <br>
+ <text> If the music pieces in the main list are the same in terms of emotion content, please click <b>"Skip"</b> to not divide further and continue grouping.</text>
+ <br>
+ <text>If you want to save the grouping done so far, and continue grouping later please click <b>"Save"</b> button.</text>
+</br>
+</div>
+<u style="color:blue;cursor:pointer"><text onclick="myFunction()" id=hide-show>Click here to see more</Text></u>
+{% if music%}
+ {% include '_musicplayer.html' %}
+{% endif %}
+<div>
+<form method="POST" action="{{url_for('new_grouping')}}">
+<button type="submit" name= "submit_button" value="play" class="button">Play Music   </button>
+</div> 
+<div>
+  <div class="continer">
+  	<div class="continer-h">
+    		<h4> Grouping List</h4>
+    		<div>
+  			<select name="main_play_list" size="20" style="width:250px;height:%90"> 
+  			{% for key in grouping.main_dict %}
+   			<option>{{key}}</option>
+  			{% endfor %}       
+  			</select>
+  		</div>
+  		<button type="submit" name= "submit_button" value="add_regrouping" class="button">Add to ungrouped musics list</button>
+
+  	</div>
+    	<div class="continer-h">
+  		<h4>{{grouping.g1_name}}</h4>
+  		<select name="g1_play_list" size="20" class="player-list">
+  		{% for key in grouping.g1_dict%}
+  		<option>{{key}}</option>
+  		{% endfor %}       
+  		</select>
+  		<div class= "continer-h">
+  			<button type="submit" name= "submit_button" value="add_g1" class="button">Add to {{grouping.g1_name}}</button>
+  			<button type="submit" name= "submit_button" value="remove_g1" class="button">Remove from {{grouping.g1_name}}</button>
+  			<textarea id="notes" name="notesg1" rows="4" cols="30">You can write reminder notes here.</textarea>
+  		</div>
+  	</div>
+  
+  	<div class="continer-h">
+  		<h4>{{grouping.g2_name}}</h4>  
+  		<select name="g2_play_list" size="20" class="player-list">
+  		{% for key in grouping.g2_dict %}
+   		<option>{{key}}</option>
+  		{% endfor %}       
+  		</select>
+  		<div class= "continer-h">
+  			<button type="submit" name= "submit_button" value="add_g2" class="button">Add to {{grouping.g2_name}}</button> 
+  			<button type="submit" name= "submit_button" value="remove_g2" class="button">Remove from {{grouping.g2_name}}</button>
+  			<textarea id="notes2" name="notesg2" rows="4" cols="30"> You can write reminder notes here. </textarea>
+  		</div>
+  	</div>
+  </div>
+  
+ <div class="continer" style="position:absolute;left:20%">
+ <button type="submit" name= "submit_button" value="next" class="button">Next Step</button>
+ <button type="submit" name= "submit_button" value="skip" class="button">Skip</button>
+ <button type="submit" name= "submit_button" value="save" class="button">Save</button>
+ </div>
+   
+</div> 
+</form>
+{% endblock %}

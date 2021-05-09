@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="info">
+
+ <h3> About music grouping app: </h3>
+ <text> A music grouping app to help recursively grouping the music according to emotional content similarities. </text>
+ <br>
+ <br>
+ <text> To start a new grouping, please click here: <a href="{{ url_for('init_grouping') }}">Start New Grouping</a> </text>
+ <br>
+ <text> To continue grouping, please click here: <a href="{{ url_for('new_grouping') }}">Continue Grouping</a> </text>
+ <br>
+ <text> To reload a grouping from the file saved before, please click here: <a href="{{ url_for('reload_grouping') }}">Reload Saved Grouping</a></text>
+</div>
+{% endblock %}
+
