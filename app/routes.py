@@ -86,13 +86,13 @@ def new_grouping():
         if request.form['submit_button'] == 'play':
             music = grouping.get_music()
         elif request.form['submit_button'] == 'add_g1':
-            add_ToGroup(0, grouping.main_dict, grouping.g1_dict)
+            add_ToGroup(0, grouping.main_dict, grouping.g1_dict,grouping)
         elif request.form['submit_button'] == 'add_g2':
-            add_ToGroup(0, grouping.main_dict, grouping.g2_dict)
+            add_ToGroup(0, grouping.main_dict, grouping.g2_dict,grouping)
         elif request.form['submit_button'] == 'remove_g1':
-            add_ToGroup(1, grouping.g1_dict, grouping.main_dict)
+            add_ToGroup(1, grouping.g1_dict, grouping.main_dict,grouping)
         elif request.form['submit_button'] == 'remove_g2':
-            add_ToGroup(2, grouping.g2_dict, grouping.main_dict)
+            add_ToGroup(2, grouping.g2_dict, grouping.main_dict,grouping)
         elif request.form['submit_button'] == 'next':
             next_step(grouping)
         elif request.form['submit_button'] == 'skip':
@@ -124,7 +124,7 @@ def regrouping_operation():
         if request.form['submit_button'] == 'play':
             music = grouping.get_music()
         elif request.form['submit_button'] == 'add_g':
-            add_ToGroup(3,grouping.regrouping_dict,grouping.groups_dict[grouping.regrouping_curr_group_key]["elems"])
+            add_ToGroup(3,grouping.regrouping_dict,grouping.groups_dict[grouping.regrouping_curr_group_key]["elems"],grouping)
         elif request.form['submit_button'] == 'add_regrouping':
             add_for_regrouping(grouping, 4)
         elif request.form['submit_button'] == 'next':

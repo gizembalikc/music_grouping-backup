@@ -270,10 +270,16 @@ def take_selected_music():
     else:
         return None , -1
 
-def add_ToGroup(reference_dict_id, reference_dict, target_dict):
+def add_ToGroup(reference_dict_id, reference_dict, target_dict,grouping):
        music_name, selected_group_id = take_selected_music()
        if selected_group_id == reference_dict_id and not(music_name==None):
            target_dict[music_name] = reference_dict.pop(music_name)
+           flash("Main list:")
+           flash(grouping.main_dict)
+           flash("Group 1:")
+           flash(grouping.g1_dict)
+           flash("Group 2:")
+           flash(grouping.g2_dict)
            return True
        else:
             #TODO mesaj eklenebilir returnler kalkabilir kullanan yok returnleri
@@ -347,4 +353,5 @@ def reload_saved_grouping(grouping,filename) :
                 flash('There is no uncompleted grouping!')
             else:
                 grouping.reload_operations(filepath)
+
 
